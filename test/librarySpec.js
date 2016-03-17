@@ -114,7 +114,6 @@ describe('PUT books/:id', () => {
       .type('form')
       .send(updatedBook)
       .end((err, res) => {
-        console.log("BOOKS!",code.books)
         expect(code.books).to.deep.include.members([updatedBook.book])
         expect(code.books.length).to.equal(1)
       done();
