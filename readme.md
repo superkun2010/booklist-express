@@ -6,13 +6,7 @@ We'd like you to build an application that has full CRUD on books. You should us
 
 ### Getting Started
 
-- make a folder for your project
-- create an app.js file
-- add a package json using the `npm init` command
-- create a `.gitignore` file and make sure `node_modules` are not tracked by git
-- initialize a git repository and make your first commit
-- make sure you have a `views` folder for your application
-- Start in your app.js by including the proper dependencies and middleware 
+- Fork and clone, run `npm test` or `mocha` to see the tests.
 
 ### Bonus
 
