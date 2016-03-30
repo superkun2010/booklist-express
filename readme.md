@@ -6,7 +6,7 @@ We'd like you to build an application that has full CRUD on books. You should us
 
 ### Getting Started
 
-- Fork and clone, run `npm test` or `mocha` to see the tests.
+- Fork and clone, run `npm test` or `mocha` to see the tests. Make sure you install all the necessary dependencies including `mocha`, `chai` and `supertest`
 
 ### Bonus
 
