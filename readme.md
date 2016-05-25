@@ -28,7 +28,7 @@ To make the tests work, make sure your Booklist meets these requirements:
 
 #### Step 2
 
-Create the routes in the table below.
+Create the routes in the table below, make all the tests pass.
 
 <table class="data-table">
     <tr>
@@ -92,9 +92,10 @@ Create the routes in the table below.
 ### Step 3
 
 - Make your Booklist project use your internal API to keep track of books between page loads. Use AJAX and make sure to use an object-oriented approach to keeping your book list synchronized between server and front-end.
+- Serve your original Booklist using `express.static`
 - You'll be hitting `localhost:3000` instead of reading from a file
 
 ### Bonus
 
-- Serve your original Booklist using `express.static`
+- Add `POST`, `PUT` and `DELETE` routes for creating, updating, and deleting books
 - Add optional filtering on your `/books` route with the querystring - use `req.query` to access parameters, and filter on `read`, `date`, `title`, and `author`
