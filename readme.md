@@ -8,7 +8,12 @@ Your first task is to build an application that has full CRUD on books. You shou
 
 #### Step 1
 
-Start by taking your `Book()` and `Booklist()` classes from your front-end project. Put them in a file called `books.js`. Put that in a folder called `models`. Make sure to export them so that the file can be included on your server. Make sure your Booklist still has it's `add()` method, and maintains it's `currentBook`, `previousBook` and `nextBook` properties.
+Start by taking your `Book()` and `Booklist()` classes from your front-end project. Put them in a file called `books.js`. Put that in a folder called `models`. Make sure to export them so that the file can be included on your server.
+Make sure your Booklist meets these requirements:
+ * `add()` method
+ * `finishCurrentBook` method
+ * `currentBook`, `previousBook` and `nextBook` properties.
+ * array of `Books` is called "`books`", not "`allBooks`"
 
 #### Step 2
 
