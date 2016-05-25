@@ -1,14 +1,11 @@
 var express = require("express");
 var app = express();
 
-var books = []
-var count = {
-  val: 1
-}
+//Put all books in this global booklist - don't create new booklists!
+var books = new Booklist();
 
 
 module.exports = {
   app,
-  books,
-  count,
+  books
 }
