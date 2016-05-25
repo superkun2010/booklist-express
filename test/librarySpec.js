@@ -62,6 +62,8 @@ describe('GET /books', () => {
       .get('/books')
       .expect(200)
       .end((err, res) => {
+        expect(res.text.to.contain(JSON.stringify(books.books)))
+        expect(res.text.to.contain('/books/2'))
         expect(res.redirect).to.equal(false)
         done();
       })

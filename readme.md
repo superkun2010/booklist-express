@@ -6,10 +6,21 @@ Using your existing booklist project, you're going to refactor the whole thing i
 
 Your first task is to build an application that has full CRUD on books. You should use an instance of `Booklist` as your way of storing book objects. Your server will start with one booklist. You should be using RESTful routing and ensure that you have a catch-all route for 404 errors.
 
+- Fork and clone, run `npm test` or `mocha` to see the tests. Make sure you `npm install` all the necessary dependencies, including `mocha`, `chai` and `supertest`
+- You'll want to look up `express.static`, `body-parser`, and use the express API documentation to create routes.
+
+
+### Tips
+
+- Remember to use `req.params` and `req.body`
+- Order matters! If your `/books/:id` route is before your `/books` route, you'll run into issues.
+
+
 #### Step 1
 
-Start by taking your `Book()` and `Booklist()` classes from your front-end project. Put them in a file called `books.js`. Put that in a folder called `models`. Make sure to export them so that the file can be included on your server.
-Make sure your Booklist meets these requirements:
+Start by taking your `Book()` and `Booklist()` classes from your front-end project. Put them in a file called `books.js`. Put that in a folder called `models`. Make sure to export them so that the file can be included in your `app.js` file.
+
+To make the tests work, make sure your Booklist meets these requirements:
  * `add()` method
  * `finishCurrentBook` method
  * `currentBook`, `previousBook` and `nextBook` properties.
@@ -17,7 +28,7 @@ Make sure your Booklist meets these requirements:
 
 #### Step 2
 
-Create the routes in the table below. Make sure to use a catchall route (by using `next()`) for anything that requires a 404, so that you results are consistent.
+Create the routes in the table below.
 
 <table class="data-table">
     <tr>
@@ -78,15 +89,12 @@ Create the routes in the table below. Make sure to use a catchall route (by usin
     </tr>
 </table>
 
-### Getting Started
+### Step 3
 
-- Fork and clone, run `npm test` or `mocha` to see the tests. Make sure you install all the necessary dependencies including `mocha`, `chai` and `supertest`
+- Make your Booklist project use your internal API to keep track of books between page loads. Use AJAX and make sure to use an object-oriented approach to keeping your book list synchronized between server and front-end.
+- You'll be hitting `localhost:3000` instead of reading from a file
 
 ### Bonus
 
-- if you examine all of your views, you will see that you are repeating yourself, research what partials are in express and how to include them - use partials to refactor and clean up your code.
-- add an additional route that allows the user to sort all of the books alphabetically
-
-### Super Bonus
-
-Use AJAX and don't do a full page refresh when adding, updating or deleting books. Research `res.json` so that you can respond using json instead of ejs. Once you are rendering JSON, use AJAX to communicate with your server.
+- Serve your original Booklist using `express.static`
+- Add optional filtering on your `/books` route with the querystring - use `req.query` to access parameters, and filter on `read`, `date`, `title`, and `author`
