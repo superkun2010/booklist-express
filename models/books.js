@@ -7,12 +7,12 @@ var BookList = function (config) {
 	this.booksNotRead = config.booksNotRead || 0;
 	this.nextBook = config.nextBook || null;
 	this.currentBook = config.currentBook || null;
-	this.lastBook = config.lastBook || null;
-	this.allBooks = config.allBooks || new Array; 
+	this.previousBook = config.previousBook || null;
+	this.books = config.books || new Array; 
 	
-//handles cases where config.allBooks provides an array of books
-	for (var i = 0; i < this.allBooks.length; i++) {
-		if (this.allBooks[i].haveRead) {
+//handles cases where config.books provides an array of books
+	for (var i = 0; i < this.books.length; i++) {
+		if (this.books[i].read) {
 			this.booksRead++;
 		} else {
 			this.booksNotRead++;
@@ -21,14 +21,14 @@ var BookList = function (config) {
 }
 
 BookList.prototype.add = function (book) {
-	this.allBooks.push(book);
-	if (!this.currentBook && !book.haveRead) {
+	this.books.push(book);
+	if (!this.currentBook && !book.read) {
 		this.currentBook = book;
 		this.booksNotRead++;
-	} else if (!this.nextBook && !book.haveRead) {
+	} else if (!this.nextBook && !book.read) {
 		this.nextBook = book;
 		this.booksNotRead++;
-	} else if (book.haveRead) {
+	} else if (book.read) {
 		this.booksRead++;
 	} else {
 		this.booksNotRead++;
@@ -36,15 +36,15 @@ BookList.prototype.add = function (book) {
 }	
 
 BookList.prototype.finishCurrentBook = function () {
-	this.currentBook.haveRead = true;
+	this.currentBook.read = true;
 	this.currentBook.readDate = new Date();
-	this.lastBook = this.currentBook;
+	this.previousBook = this.currentBook;
 	this.currentBook = this.nextBook;
 	this.booksRead++
 	this.booksNotRead--
-	for (var i = 0; i < this.allBooks.length; i++) {
-		if (!this.allBooks[i].haveRead) {
-			this.nextBook = this.allBooks[i];
+	for (var i = 0; i < this.books.length; i++) {
+		if (!this.books[i].read) {
+			this.nextBook = this.books[i];
 			break;
 		}
 	}
@@ -57,11 +57,14 @@ var Book = function (config) {
 	this.title = config.title || null;
 	this.genre = config.genre || null;
 	this.author = config.author || null;
-	this.haveRead = config.haveRead || false;
+	this.read = config.read || false;
 	this.readDate = config.readDate || null;
 }
 
-
+module.exports = {
+	BookList: BookList,
+	Book: Book
+};
 // var kunsBookList = new BookList({});
 // var bookOne = new Book({});
 // kunsBookList.add(bookOne);
