@@ -7,7 +7,7 @@ var pg = require('pg');
 var conString = "postgres://kunhsu@localhost:5432/booklist_app_knex";
 
 pg.connect(conString, function(err, client, done) {
-	console.log(knex);
+    console.log("api connected");
     var handleError = function(err) {
       // no error occurred, continue with the request
       if(!err) return false;
@@ -24,7 +24,6 @@ pg.connect(conString, function(err, client, done) {
       res.end('An error occurred');
       return true;
     };
-
     router.get('/book', function (req,res) {
 		knex('book').select().then(function(data) {
 			res.jsonp(data);
