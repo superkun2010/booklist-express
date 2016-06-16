@@ -11,9 +11,11 @@
     "chai": "^3.5.0",
     "express": "^4.13.4",
     "hbs": "^4.0.0",
+    "knex": "^0.11.5",
     "locus": "^1.2.0",
     "mocha": "^2.5.3",
     "morgan": "^1.7.0",
+    "pg": "^5.0.0",
     "supertest": "^1.2.0"
   },
   "devDependencies": {},

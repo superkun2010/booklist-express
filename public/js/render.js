@@ -11,7 +11,7 @@
 
 
 $.ajax({
-  url: 'http://localhost:8080/books',
+  url: 'http://localhost:8080/api',
   method: 'GET',
   success: function (data) {
     console.log(data);
