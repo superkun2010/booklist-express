@@ -26,8 +26,15 @@ pg.connect(conString, function(err, client, done) {
       return true;
     };
 
+    //Make sure to grab UserName and all books for that user
 	router.get('/', function (req,res) {
-		knex('book').select().join('author_book','book.book_id','author_book.book_id').join('author', 'author_book.author_id', 'author.author_id').then(function(data) {
+		knex('booklist').select().join('users', 'booklist.user_id', 'user.user_id')
+		.join('book_booklist', 'booklist.booklist_id', 'book_booklist.booklist_id')
+		.join('book', 'book_booklist.book_id', 'book.book_id')
+		.join('author_book','book.book_id','author_book.book_id')
+		.join('author', 'author_book.author_id', 'author.author_id')
+		.whereIn('user_name')	
+		.then(function(data) {
 			var books = data;
 			res.render('booktable', {books: books});		
 		})		
@@ -54,8 +61,6 @@ pg.connect(conString, function(err, client, done) {
 			knex('book').insert({title: req.body.title, genre: req.body.genre}).returning('book_id'),
 			knex('author').insert({author_name: req.body.author}).returning('author_id')
 		]).then(function(data) {
-			console.log(data[0][0]);
-			console.log(data[1][0]);
 			return knex('author_book').insert({author_id: data[1][0], book_id: data[0][0]});
 		}).then(function(data) {
 			res.redirect('/booklist');

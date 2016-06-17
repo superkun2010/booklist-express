@@ -7,6 +7,7 @@ var morgan = require('morgan');
 var knex = require("./db/knex.js");
 var pg = require("pg");
 var bcrypt = require("bcrypt");
+var cookieParser = require("cookie-parser");
 
 var conString = "postgres://kunhsu@localhost:5432/booklist_app_knex";
 
@@ -16,6 +17,7 @@ app.use(express.static('public'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser);
 
 app.set('view engine', 'hbs');
 
@@ -26,27 +28,25 @@ app.get('/', function (req, res) {
 // app.use('/api', apiRouter);
 app.use('/booklist', booklistRouter);
 
-pg.connect(conString, function(err, client, done) {
-	app.post('/', function (req,res) {
-		console.log(req.body.userName);
-		console.log(req.body.password);
+app.get('/', function(req,res) {
+	res.redirect('/login');
+})
 
+pg.connect(conString, function(err, client, done) {
+	app.post('/login', function (req,res) {
 		return knex('users').select().whereIn('user_name', req.body.userName)
 		.then(function(user) {
-			console.log(user);
-			// if (user) {
-			// 	var user
-			// 	if (password matches) {
-			// 		"success"
-			// 		res.redirect('/booklist')
-			// 	} else {
-			// 		"Password doesn't match"
-			// 	}	
-			// } else {
-			// 	"No user name by that name"
-			// }
+			if (user) {
+				var userName = user[0].user_name;
+				if (bcrypt.compareSync(req.body.password, user[0].password)) {
+					res.redirect('/booklist');
+				} else {
+					res.send("Password doesn't match");
+				}	
+			} else {
+				res.send("User Name not found");
+			}
 		})
-		res.redirect('/');
 	});
 
 	app.get('/signup', function(req,res) {
