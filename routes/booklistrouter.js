@@ -1,7 +1,7 @@
 
 var express = require("express");
 var router = express.Router();
-var books = require("../data/data.js").books;
+var userName = require("../data/data.js").userName;
 var knex = require("../db/knex.js");
 var pg = require("pg");
 
@@ -25,16 +25,18 @@ pg.connect(conString, function(err, client, done) {
       res.end('An error occurred');
       return true;
     };
-
+    console.log(userName);
     //Make sure to grab UserName and all books for that user
 	router.get('/', function (req,res) {
-		knex('booklist').select().join('users', 'booklist.user_id', 'user.user_id')
+		
+		return knex('booklist').select().join('users', 'booklist.user_id', 'users.user_id')
 		.join('book_booklist', 'booklist.booklist_id', 'book_booklist.booklist_id')
 		.join('book', 'book_booklist.book_id', 'book.book_id')
 		.join('author_book','book.book_id','author_book.book_id')
 		.join('author', 'author_book.author_id', 'author.author_id')
-		.whereIn('user_name')	
+		// .where('user_name', userName)	
 		.then(function(data) {
+			console.log(data);
 			var books = data;
 			res.render('booktable', {books: books});		
 		})		
